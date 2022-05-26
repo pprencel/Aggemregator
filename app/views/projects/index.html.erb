@@ -4,11 +4,20 @@
   <% end %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Projects</h1>
-    <%= link_to 'New project', new_project_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <h1 class="font-bold text-4xl">Projects (<%=@projects.count%>)</h1>
   </div>
-
+  <div class="flex">
+    <%= form_tag(projects_path, method: :get) do %>
+      <%= search_field_tag(:search, params[:search]) %>
+      <%= submit_tag("Search") %>
+    <% end %>
+  </div>
   <div id="projects" class="min-w-full">
-    <%= render @projects %>
+    <% @projects.each do |project| %>
+      <%= render project %>
+      <p>
+        <%= link_to "Show this project", project %>
+      </p>
+    <% end %>
   </div>
 </div>

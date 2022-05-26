@@ -3,7 +3,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.joins(:jewels).limit(20).order(stars_count: :desc)
+    if params[:search].present?
+      jewel_ids = Jewel.where("name LIKE ?", "#{params[:search]}").pluck(:id)
+      @projects = @projects.where(jewels: [jewel_ids])
+    end
   end
 
   # GET /projects/1 or /projects/1.json

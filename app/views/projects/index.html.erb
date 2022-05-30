@@ -12,12 +12,10 @@
       <%= submit_tag("Search") %>
     <% end %>
   </div>
+
+  <%= turbo_frame_tag "page_handler" %>
   <div id="projects" class="min-w-full">
-    <% @projects.each do |project| %>
-      <%= render project %>
-      <p>
-        <%= link_to "Show this project", project %>
-      </p>
-    <% end %>
+    <%= render @projects %>
   </div>
+  <%= render "pager", pagy: @pagy %>
 </div>

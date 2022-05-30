@@ -1,5 +1,5 @@
-<div id="<%= dom_id project %>">
-  <p class="my-5">
+<div id="<%= dom_id project %>" class="border-solid border-2">
+  <p class="my-5 bt-2">
     <strong class="block font-medium mb-1">Name:</strong>
     <%= project.name %>
   </p>
@@ -20,5 +20,8 @@
         <%= link_to(jewel.name, projects_path(search: jewel.name))%>
       </span>
     <% end %>
+  </p>
+  <p class="my-5">
+    <%= link_to "Show this project", project %>
   </p>
 </div>

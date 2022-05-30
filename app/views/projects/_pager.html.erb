@@ -1,0 +1,15 @@
+<div id="pager" class="min-w-full my-8 flex justify-between">
+  <div>
+    <% if pagy.next %>
+      <%= link_to(
+        "Load more widgets",
+        projects_path(page: pagy.next),
+        class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800",
+        data: {
+          turbo_frame: "page_handler",
+          controller: "autoclick"
+        }
+      ) %>
+    <% end %>
+  </div>
+</div>

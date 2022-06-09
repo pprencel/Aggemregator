@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects or /projects.json
   def index
     projects = Project.order(stars_count: :desc)
+    params.delete(:commit)
     if params[:search].present?
       jewel_ids = Jewel.where("name LIKE ?", "#{params[:search]}").pluck(:id)
       projects = projects.joins(:jewels).where(jewels: [jewel_ids])

@@ -3,10 +3,11 @@
     <% if pagy.next %>
       <%= link_to(
         "Load more widgets",
-        projects_path(page: pagy.next),
+        projects_path(page: pagy.next, search: params[:search]),
         class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800",
         data: {
           turbo_frame: "page_handler",
+          turbo_action: "advance",
           controller: "autoclick"
         }
       ) %>

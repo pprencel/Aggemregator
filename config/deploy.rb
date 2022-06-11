@@ -2,9 +2,10 @@
 lock "~> 3.17.0"
 
 set :rbenv_type, :user
-set :rbenv_ruby,  '3.0.3'
-set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_ruby,  "3.0.3"
+set :rbenv_prefix, "#{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_custom_path, "/home/przemek/.rbenv"
 set :rbenv_roles, :all # default value
 set :rvm1_map_bins, %w(rake gem bundle ruby)
 
@@ -13,9 +14,9 @@ set :repo_url, "git@github.com:pprencel/Aggemregator.git"
 # set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
 set :deploy_to, "/home/przemek/#{fetch(:application)}"
 set :branch, "main"
-
-append :linked_files, "#{shared_path}/config/credentials/production.key"
-
+# remove rben-vars   !!!!!!!
+append :linked_files, "config/database.yml", ".rbenv-vars"
+append :linked_dirs, "log", "tmp/cache", "tmp/sockets", "tmp/pids", "vendor/bundle"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

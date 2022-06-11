@@ -1,3 +1,19 @@
+set :rails_env, :production
+
+set :pty,             true
+
+server 'srv11.mikr.us', user: 'przemek', roles: %w{app db web}, port: 10212
+set :user, "przemek"
+set :application, "Aggemregator"
+set :puma_workers,    2
+set :puma_bind,       "unix:///tmp/#{fetch(:application)}/puma.sock"
+set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid,        "#{shared_path}/tmp/pids/pumaa.pid"
+set :puma_access_log, "#{release_path}/log/puma.access.log"
+set :puma_error_log,  "#{release_path}/log/puma.error.log"
+
+append :linked_files, "config/credentials/production.key"
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
@@ -6,10 +22,6 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-
-
-server 'srv11.mikr.us', user: 'przemek', roles: %w{app db web}, port: 10212
-set :user, "przemek"
 
 # role-based syntax
 # ==================

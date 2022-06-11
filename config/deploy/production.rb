@@ -4,11 +4,14 @@ set :pty,             true
 
 server 'srv11.mikr.us', user: 'przemek', roles: %w{app db web}, port: 10212
 set :user, "przemek"
-set :application, "Aggemregator"
-set :puma_workers,    2
-set :puma_bind,       "unix:///tmp/#{fetch(:application)}/puma.sock"
+set :branch, "main"
+set :deploy_to, "/home/przemek/#{fetch(:application)}"
+
+set :puma_threads,    [2, 8]
+set :puma_workers,    1
+set :puma_bind,       "unix://#{shared_path}/tmp/sockets/puma.sock"
 set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
-set :puma_pid,        "#{shared_path}/tmp/pids/pumaa.pid"
+set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.access.log"
 set :puma_error_log,  "#{release_path}/log/puma.error.log"
 

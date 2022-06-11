@@ -1,22 +1,16 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.0"
+set :application, "Aggemregator"
+set :repo_url, "git@github.com:pprencel/Aggemregator.git"
+
+append :linked_files, "config/database.yml"
+append :linked_dirs, "log", "tmp/cache", "tmp/sockets", "tmp/pids", "vendor/bundle"
 
 set :rbenv_type, :user
 set :rbenv_ruby,  "3.0.3"
 set :rbenv_prefix, "#{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w{rake gem bundle ruby rails}
-set :rbenv_custom_path, "/home/przemek/.rbenv"
 set :rbenv_roles, :all # default value
-set :rvm1_map_bins, %w(rake gem bundle ruby)
 
-set :application, "Aggemregator"
-set :repo_url, "git@github.com:pprencel/Aggemregator.git"
-# set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
-set :deploy_to, "/home/przemek/#{fetch(:application)}"
-set :branch, "main"
-# remove rben-vars   !!!!!!!
-append :linked_files, "config/database.yml", ".rbenv-vars"
-append :linked_dirs, "log", "tmp/cache", "tmp/sockets", "tmp/pids", "vendor/bundle"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

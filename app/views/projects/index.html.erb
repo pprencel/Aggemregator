@@ -3,8 +3,8 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Projects (<%=@pagy.count%>)</h1>
+  <div class="flex justify-between items-center py-2">
+    <h1 class="font-bold text-4xl">Projects <span class="text-sky-700">(<%=@pagy.count%>)</span></h1>
   </div>
   <div class="flex">
     <%= form_tag(projects_path, method: :get) do %>

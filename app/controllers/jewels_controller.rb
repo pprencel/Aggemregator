@@ -7,11 +7,11 @@ class JewelsController < ApplicationController
   end
 
   def autocomplete
-    @tags = Jewel.order('name ASC')
+    @tags = []
     if params[:q].present?
-      @tags = @tags.where('lower(name) LIKE ?', "%#{params[:q].downcase}%")
+      @tags = Jewel.search_by_name(params[:q])
+      @tags = @tags.limit(3).pluck(:name)
     end
-    @tags = @tags.limit(3).pluck(:name)
     render layout: false
   end
 

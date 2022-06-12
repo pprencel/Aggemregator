@@ -6,6 +6,15 @@ class JewelsController < ApplicationController
     @jewels = Jewel.all
   end
 
+  def autocomplete
+    @tags = Jewel.order('name ASC')
+    if params[:q].present?
+      @tags = @tags.where('lower(name) LIKE ?', "%#{params[:q].downcase}%")
+    end
+    @tags = @tags.limit(3).pluck(:name)
+    render layout: false
+  end
+
   # GET /jewels/1 or /jewels/1.json
   def show
   end

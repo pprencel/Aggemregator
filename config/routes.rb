@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: "projects#index" # tempomary walk around
-  resources :jewels
+  resources :jewels  do
+    get :autocomplete, on: :collection
+  end
   resources :projects
   get 'home/index'
 

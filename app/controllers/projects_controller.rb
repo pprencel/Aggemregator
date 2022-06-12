@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
     end
     @pagy, @projects = pagy(projects, items: 20)
   end
-
+  
   # GET /projects/1 or /projects/1.json
   def show
   end

@@ -6,13 +6,16 @@
   <div class="flex justify-between items-center py-2">
     <h1 class="font-bold text-4xl">Projects <span class="text-sky-700">(<%=@pagy.count%>)</span></h1>
   </div>
-  <div class="flex">
+  <div class="max-w-xs mx-auto bg-white">
     <%= form_tag(projects_path, method: :get) do %>
-      <%= search_field_tag(:search, params[:search]) %>
-      <%= submit_tag("Search") %>
-    <% end %>
+      <div data-controller="autocomplete" data-autocomplete-url-value="jewels/autocomplete">
+        <input type="text" class="w-full" data-autocomplete-target="input" value="<%=params[:search]%>" placeholder='Type gem name...'/>
+        <input type="hidden" name="search" data-autocomplete-target="hidden">
+        <ul class="list-group absolute bg-slate-50 w-80" data-autocomplete-target="results"></ul>
+      </div>
+      <%= submit_tag("", class: "hidden", disabled: true)%>
+    <% end %> 
   </div>
-
   <%= turbo_frame_tag "page_handler" %>
   <div id="projects" class="min-w-full">
     <%= render @projects %>

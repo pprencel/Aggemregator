@@ -6,6 +6,24 @@
   <div class="flex justify-between items-center py-2">
     <h1 class="font-bold text-4xl">Projects <span class="text-sky-700">(<%=@pagy.count%>)</span></h1>
   </div>
+  <% if @selected_jewel.present? %>
+    <div class="float-right bg-slate-100 p-6 m-1">
+      <div>
+        selected gem: <%=@selected_jewel.name%>
+      </div>
+      <%
+=begin%>
+ <div>
+        <%=link_to("github", @selected_jewel.url, target: "_blank", class: "text-sky-700") %>
+      </div> 
+<%
+=end%>
+
+      <div>
+        <%=link_to("toolbox", ruby_toolbox_url(@selected_jewel.name), target: "_blank", class: "text-sky-700")%>
+      </div>
+    </div>
+  <% end %>
 
   <%= render "searchbar" %>
 

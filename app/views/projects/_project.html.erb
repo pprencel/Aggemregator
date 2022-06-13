@@ -1,17 +1,17 @@
 <div id="<%= dom_id project %>" class="border-solid border-2">
   <p class="my-5 bt-2">
-    <strong class="block font-medium mb-1">Name:</strong>
+    <span class="block font-medium mb-1">Name:</span>
     <%= project.name %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Stars count:</strong>
+    <span class="block font-medium mb-1">Stars count:</span>
     <%= project.stars_count %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Url:</strong>
-    <%= link_to(project.url, project.url, target: "_blank") %>
+    <span class="block font-medium mb-1">Url:</span>
+    <%= link_to(project.url, project.url, target: "_blank", class: "text-sky-700") %>
   </p>
 
   <p class="my-5">

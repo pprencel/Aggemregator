@@ -6,8 +6,8 @@ class ProjectsController < ApplicationController
     projects = Project.order(stars_count: :desc)
     params.delete(:commit)
     if params[:search].present?
-      jewel_ids = Jewel.where("name LIKE ?", "#{params[:search]}").pluck(:id)
-      projects = projects.joins(:jewels).where(jewels: [jewel_ids])
+      @selected_jewel = Jewel.where("name LIKE ?", "#{params[:search]}").first
+      projects = projects.joins(:jewels).where(jewels: [@selected_jewel.id])
     end
     @pagy, @projects = pagy(projects, items: 20)
   end

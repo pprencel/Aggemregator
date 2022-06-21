@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+require 'rest-client'
+require 'json'
+
+class Github::ImportAwesomeProjects < Github::GithubBase
+  prepend ServiceModule::Base
+
+  def call
+    file_body = awesome_repo_readme_file
+    project_url_map = file_body.scan(/- \[([\S]+)\]\(([\S]+)\)/)
+    project_url_map.each do |project_name, project_url|
+      Github::ProcessProject.call(project_name: project_name, project_url: project_url)
+    end
+  end
+
+  private
+
+  def awesome_repo_readme_file
+    repo_url = "https://#{user_auth}@raw.githubusercontent.com/asyraffff/Open-Source-Ruby-and-Rails-Apps/master/README.md"
+    github_resp_body(repo_url)
+  end
+end

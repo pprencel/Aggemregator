@@ -78,7 +78,14 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "webmock"
+end
+
+group :test, :development do
+  gem 'rspec-rails', '~> 6.0.0.rc1'
+  gem 'factory_bot_rails'
 end
 
 gem "pagy", "~> 5.10"
 gem 'pg_search'
+gem 'rest-client', '~> 2.1'

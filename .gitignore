@@ -35,3 +35,4 @@
 
 /config/credentials/production.key
 nginx.conf
+/config/credentials/test.key

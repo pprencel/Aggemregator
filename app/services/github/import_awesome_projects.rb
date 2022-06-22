@@ -9,7 +9,12 @@ class Github::ImportAwesomeProjects < Github::GithubBase
     file_body = awesome_repo_readme_file
     project_url_map = file_body.scan(/- \[([\S]+)\]\(([\S]+)\)/)
     project_url_map.each do |project_name, project_url|
-      Github::ProcessProject.call(project_name: project_name, project_url: project_url)
+      begin
+        Github::ProcessProject.call(project_name: project_name, project_url: project_url)
+      rescue StandardError => e
+        debugger
+        Rails.logger.debug e.message
+      end
     end
   end
 

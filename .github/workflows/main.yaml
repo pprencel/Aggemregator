@@ -27,18 +27,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
-    strategy:
-      fail-fast: false
-      matrix:
-        # [n] - where the n is a number of parallel jobs you want to run your tests on.
-        # Use a higher number if you have slow tests to split them between more parallel jobs.
-        # Remember to update the value of the `ci_node_index` below to (0..n-1).
-        ci_node_total: [2]
-        # Indexes for parallel jobs (starting from zero).
-        # E.g. use [0, 1] for 2 parallel jobs, [0, 1, 2] for 3 parallel jobs, etc.
-        ci_node_index: [0, 1]
-
     env:
       RAILS_ENV: test
       GEMFILE_RUBY_VERSION: 2.7.2
@@ -63,4 +51,4 @@ jobs:
           bin/rails db:prepare
       - name: Run tests
         run: |
-          bundle exec rake rspec
+          bundle exec rspec

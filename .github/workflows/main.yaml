@@ -29,6 +29,7 @@ jobs:
 
     env:
       RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }} 
       GEMFILE_RUBY_VERSION: 2.7.2
       PGHOST: localhost
       PGUSER: postgres

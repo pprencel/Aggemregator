@@ -4,8 +4,9 @@ RSpec.describe Github::ProcessProject do
 
   let(:project_name) { "writings.io" }
   let(:project_url) { "https://github.com/chloerei/writings" }
+  let(:project_desc) { "Source code of writings.io. " }
 
-  subject { described_class.call(project_name: project_name, project_url: project_url) }
+  subject { described_class.call(project_name: project_name, project_url: project_url, project_desc: project_desc) }
   # Github::ProcessProject.call(project_name: "writings.io", project_url: "https://github.com/chloerei/writings")
 
   before do
@@ -23,6 +24,7 @@ RSpec.describe Github::ProcessProject do
     project = Project.first
     expect(project.name).to eq(project_name)
     expect(project.url).to eq(project_url)
+    expect(project.description).to eq(project_desc)
     expect(project.stars_count).to eq(952)
 
     expect(Jewel.count).to eq(3)

@@ -4,10 +4,11 @@ module Github
   class ProcessProject < Github::GithubBase
     prepend ServiceModule::Base
 
-    def call(project_name:, project_url:)
+    def call(project_name:, project_url:, project_desc:)
       ActiveRecord::Base.transaction do
         project = Project.find_or_initialize_by(name: project_name)
         project.url = project_url
+        project.description = project_desc
         project.stars_count = fetch_stars_count(project_url)
         project.save
 

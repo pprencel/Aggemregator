@@ -5,16 +5,14 @@ module Github
     prepend ServiceModule::Base
 
     def call(project_id:)
-      ActiveRecord::Base.transaction do
-        project = Project.find(project_id)
-        project.stars_count = fetch_stars_count(project.url)
-        project.save
+      project = Project.find(project_id)
+      project.stars_count = fetch_stars_count(project.url)
+      project.save
 
-        gems_list = get_gems_list(project.url)
-        gems_list.each do |gem_name|
-          jewel = Jewel.find_or_initialize_by(name: gem_name)
-          project.jewels << jewel unless jewel.id.in?(project.jewel_ids)
-        end
+      gems_list = get_gems_list(project.url)
+      gems_list.each do |gem_name|
+        jewel = Jewel.find_or_initialize_by(name: gem_name)
+        project.jewels << jewel unless jewel.id.in?(project.jewel_ids)
       end
     end
 

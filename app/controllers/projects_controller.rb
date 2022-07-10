@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    projects = Project.order(stars_count: :desc)
+    projects = Project.where.not(stars_count: 0).order(stars_count: :desc)
     params.delete(:commit)
     if params[:search].present?
       @selected_jewel = Jewel.where("name LIKE ?", "#{params[:search]}").first
@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
     end
     @pagy, @projects = pagy(projects, items: 20)
   end
-  
+
   # GET /projects/1 or /projects/1.json
   def show
   end

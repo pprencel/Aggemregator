@@ -6,7 +6,7 @@ class Github::ImportAwesomeProjects < Github::GithubBase
   prepend ServiceModule::Base
 
   NAME_REGEXP = /\[([\S]+)\]/
-  URL_REGEXP = /\(([\S]+)\)/
+  URL_REGEXP = /\((https:\/\/github.com\/.*\/.+)\)/
   DESC_REGEXP = /([\s\w.,]+)/
 
   def call

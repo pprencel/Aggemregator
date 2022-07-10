@@ -40,7 +40,7 @@ module Github
 
       gemfile.scan(/gem ['"]([\w'-]+)['"],/).map(&:first)
     rescue StandardError => e
-      raise Github::GemListError, "failed to fetch gems list - #{e}"
+      raise Github::GemListError, "Failed to fetch gems list - #{e}"
     end
   end
 end

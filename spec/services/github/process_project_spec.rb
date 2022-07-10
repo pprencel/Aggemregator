@@ -70,16 +70,4 @@ RSpec.describe Github::ProcessProject do
     expect(Project.count).to eq(1)
     expect(Jewel.count).to eq(0)
   end
-
-  it "Should raise GemListError exception if failed to fetch gemlist" do
-    stub_request(:get, "https://raw.githubusercontent.com/chloerei/writings/master/Gemfile")
-    .to_return(status: 404)
-
-    stub_request(:get, "https://raw.githubusercontent.com/chloerei/writings/main/Gemfile")
-    .to_return(status: 404)
-
-    expect { subject }.to raise_exception(Github::GemListError)
-    expect(Project.count).to eq(1)
-    expect(Jewel.count).to eq(0)
-  end
 end

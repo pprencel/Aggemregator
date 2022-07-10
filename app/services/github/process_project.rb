@@ -4,15 +4,13 @@ module Github
   class ProcessProject < Github::GithubBase
     prepend ServiceModule::Base
 
-    def call(project_name:, project_url:, project_desc:)
+    def call(project_id:)
       ActiveRecord::Base.transaction do
-        project = Project.find_or_initialize_by(name: project_name)
-        project.url = project_url
-        project.description = project_desc
-        project.stars_count = fetch_stars_count(project_url)
+        project = Project.find(project_id)
+        project.stars_count = fetch_stars_count(project.url)
         project.save
 
-        gems_list = get_gems_list(project_url)
+        gems_list = get_gems_list(project.url)
         gems_list.each do |gem_name|
           jewel = Jewel.find_or_initialize_by(name: gem_name)
           project.jewels << jewel unless jewel.id.in?(project.jewel_ids)
@@ -27,8 +25,8 @@ module Github
       resp = github_resp_body(repo_url)
       json = JSON.parse(resp).deep_symbolize_keys!
       json.fetch(:stargazers_count)
-    rescue => e
-      raise Github::ProjectStarsError.new("Failed to fetch stars count for #{repo_url} - #{e}")
+    rescue StandardError => e
+      raise Github::ProjectStarsError, "Failed to fetch stars count for #{repo_url} - #{e}"
     end
 
     def get_gems_list(base_url)
@@ -41,8 +39,8 @@ module Github
       end
 
       gemfile.scan(/gem ['"]([\w'-]+)['"],/).map(&:first)
-    rescue => e
-      raise Github::GemListError.new("failed to fetch gems list - #{e}")
+    rescue StandardError => e
+      raise Github::GemListError, "failed to fetch gems list - #{e}"
     end
   end
 end

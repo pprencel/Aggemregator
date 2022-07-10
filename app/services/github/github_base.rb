@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Github::GithubBase
   def user_auth
     # client_id valid till Jun 13 2023

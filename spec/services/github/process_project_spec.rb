@@ -5,9 +5,9 @@ RSpec.describe Github::ProcessProject do
   let(:project_name) { "writings.io" }
   let(:project_url) { "https://github.com/chloerei/writings" }
   let(:project_desc) { "Source code of writings.io. " }
-
-  subject { described_class.call(project_name: project_name, project_url: project_url, project_desc: project_desc) }
-  # Github::ProcessProject.call(project_name: "writings.io", project_url: "https://github.com/chloerei/writings")
+  let(:project) { Project.create(name: project_name, url: project_url, description: project_desc)}
+  subject { described_class.call(project_id: project.id) }
+  # Github::ProcessProject.call(project_id: project.id)
 
   before do
     stub_request(:get, "https://api.github.com/repos/chloerei/writings")
@@ -38,7 +38,6 @@ RSpec.describe Github::ProcessProject do
     .to_return(status: 200, body: file_fixture("writings/Gemfile"))
 
     jewel = Jewel.create(name: "rails")
-    project = Project.create(name: "writings.io", url: "cool", stars_count: 1)
     jewel.projects << project
     expect(Project.count).to eq(1)
     expect(Jewel.count).to eq(1)
@@ -68,7 +67,7 @@ RSpec.describe Github::ProcessProject do
     .to_return(status: 404)
 
     expect { subject }.to raise_exception(Github::ProjectStarsError)
-    expect(Project.count).to eq(0)
+    expect(Project.count).to eq(1)
     expect(Jewel.count).to eq(0)
   end
 
@@ -80,7 +79,7 @@ RSpec.describe Github::ProcessProject do
     .to_return(status: 404)
 
     expect { subject }.to raise_exception(Github::GemListError)
-    expect(Project.count).to eq(0)
+    expect(Project.count).to eq(1)
     expect(Jewel.count).to eq(0)
   end
 end

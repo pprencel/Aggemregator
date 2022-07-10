@@ -12,7 +12,7 @@ class Github::ImportAwesomeProjects < Github::GithubBase
       begin
         Github::ProcessProject.call(project_name: project_name, project_url: project_url)
       rescue StandardError => e
-        debugger
+        notify_about_error("Failed to ProcessProject: #{project_name}")
         Rails.logger.debug e.message
       end
     end

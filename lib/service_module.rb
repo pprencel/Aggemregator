@@ -13,5 +13,12 @@ module ServiceModule
         prepend Callable
       end
     end
+
+    # 'pusher' is system comand that sends email to me
+    def notify_about_error(error_message)
+      return unless Rails.env.production?
+
+      system("echo #{error_message} | pusher")
+    end
   end
 end

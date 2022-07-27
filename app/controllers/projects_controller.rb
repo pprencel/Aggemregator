@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    projects = Project.where.not(stars_count: 0).order(stars_count: :desc)
+    projects = Project.includes(:jewels).where.not(stars_count: 0).order(stars_count: :desc)
     params.delete(:commit)
     if params[:search].present?
       @selected_jewel = Jewel.where("name LIKE ?", "#{params[:search]}").first

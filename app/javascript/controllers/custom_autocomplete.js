@@ -1,6 +1,6 @@
 import { Autocomplete } from "stimulus-autocomplete"
 
-export class CustomAutocomplete extends Autocomplete {
+export default class CustomAutocomplete extends Autocomplete {
   connect() {
     super.connect()
     this.bindFormSubmitOnValueChange(this.element)

@@ -1,5 +1,5 @@
 import { Application } from "@hotwired/stimulus"
-import { CustomAutocomplete } from "./custom_autocomplete"
+import CustomAutocomplete from "controllers/custom_autocomplete"
 
 const application = Application.start()
 

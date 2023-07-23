@@ -36,3 +36,5 @@ backup.sql
 /config/credentials/production.key
 nginx.conf
 /config/credentials/test.key
+
+/config/credentials/development.key

@@ -72,6 +72,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano3-puma'
   gem 'capistrano-rbenv', '~> 2.1'
+  gem "dockerfile-rails", ">= 1.4"
 end
 
 group :test do
@@ -90,3 +91,4 @@ end
 gem "pagy", "~> 5.10"
 gem 'pg_search'
 gem 'rest-client', '~> 2.1'
+gem 'nokogiri', '~> 1.12.5'

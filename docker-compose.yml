@@ -6,8 +6,12 @@ services:
       args:
         UID: ${UID:-1000}
         GID: ${GID:-${UID:-1000}}
+        RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+        RAILS_ENV: ${RAILS_ENV}
     ports:
       - "4000:3000"
+    env_file:
+      - ".env"
     environment:
       - DATABASE_URL=postgres://root:password@postgres-db/
     depends_on:
@@ -21,8 +25,6 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     healthcheck:
       test: pg_isready
       interval: 2s

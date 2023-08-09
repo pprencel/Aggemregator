@@ -8,8 +8,8 @@ FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 WORKDIR /rails
 
 # Set production environment
-ENV RAILS_ENV="production" \
-    BUNDLE_WITHOUT="development:test"
+ARG RAILS_ENV="production"
+ENV RAILS_ENV="${RAILS_ENV}"
 
 # Update gems and bundler
 RUN gem update --system --no-document && \
@@ -41,11 +41,11 @@ RUN bundle exec bootsnap precompile app/ lib/
 ARG RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE=DUMMY ./bin/rails assets:precompile
 
-# that is walkaround for passing env variable durring build
+# NOTE: that is walkaround for passing env variable durring build (docker build --build-arg "RAILS_MASTER_KEY=123")
 # RUN echo $RAILS_MASTER_KEY > /rails/config/credentials/production.key
 
-
 # Final stage for app image
+# NOTE: assets is the name of the stage(first line of that file) we want to copy from
 FROM base
 
 # Install packages needed for deployment
@@ -74,4 +74,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 4000
-CMD ["./bin/rails", "server"]
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
